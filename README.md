@@ -15,7 +15,7 @@ mitigating the effect of outliers, and handling class imbalance.
  TERM is not only competitive with existing solutions tailored to these individual problems, 
  but can also enable entirely new applications, such as simultaneously addressing outliers and promoting fairness.
 
-# Get Started
+## Get Started
 
 ### Dependencies
 
@@ -32,7 +32,7 @@ As we apply TERM to a diverse set of real-world applications, the dependencies f
 	* scipy
 	* cvxpy
 
-# Properties of TERM
+## Properties of TERM
 
 
 ### Motivating examles
@@ -66,7 +66,7 @@ jupyter notebook
 , and directly run the notebook.)*
 
 
-# How to run the code for different applications
+## How to run the code for different applications
 
 **1. Robust regression** 
 
@@ -166,7 +166,7 @@ bash run.sh tilting 0 0 term_t0.1_seed0 > term_t0.1_seed0 2>&1 &
     	
 
 
-# References
+## References
 
 
 Please see the [paper]() for more details of TERM as well as a complete list of related work.
