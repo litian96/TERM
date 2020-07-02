@@ -138,9 +138,22 @@ python variance_reduction.py --obj tilting --t 50
 ```
 
 * `simple_projections.py` is directly taken from the [RobustRegRisk code](https://github.com/hsnamkoong/robustopt)
+
+
+
+**7. Fair federated learning**
+
+```
+cd term/fair_flearn
+bash run.sh tilting 0 0 term_t0.1_seed0 > term_t0.1_seed0 2>&1 &
+```
+* built upon the public [q-FFL codebase](https://github.com/litian96/fair_flearn)
+* download the vehicle dataset following [the README in the q-FFL code](https://github.com/litian96/fair_flearn/tree/master/data/vehicle)
+* dependencies: same as those required by the [q-FFL code](https://github.com/litian96/fair_flearn)
+    
 	
 
-**7. Hierarchical multi-objective tilting**
+**8. Hierarchical multi-objective tilting**
 
 ```
 cd term/hierarchical
@@ -153,16 +166,6 @@ python mixed_level2.py --imbalance 1 --corrupt 1 --obj tilting --t_in 50 --t_out
 
  
 
-**8. Fair federated learning**
-
-```
-cd term/fair_flearn
-bash run.sh tilting 0 0 term_t0.1_seed0 > term_t0.1_seed0 2>&1 &
-```
-* built upon the public [q-FFL codebase](https://github.com/litian96/fair_flearn)
-* download the vehicle dataset following [the README in the q-FFL code](https://github.com/litian96/fair_flearn/tree/master/data/vehicle)
-* dependencies: same as those required by the [q-FFL code](https://github.com/litian96/fair_flearn)
-    
     	
 
 
