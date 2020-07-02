@@ -15,14 +15,14 @@ mitigating the effect of outliers, and handling class imbalance.
  TERM is not only competitive with existing solutions tailored to these individual problems, 
  but can also enable entirely new applications, such as simultaneously addressing outliers and promoting fairness.
 
-## Get Started
+## Getting started
 
 ### Dependencies
 
 As we apply TERM to a diverse set of real-world applications, the dependencies for different applications can be different.
 
-* If we mention that the code is based on other public codebases, you will need to follow the same setup of those codebases. 
-* Otherwise, need the following dependencies (the latest versions will work):
+* if we mention that the code is based on other public codebases, you will need to follow the same setup of those codebases. 
+* otherwise, need the following dependencies (the latest versions will work):
 	* python3
 	* sklearn
 	* numpy
