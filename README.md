@@ -1,15 +1,15 @@
 # Tilted Empirical Risk Minimization
 
-This repository contains the data, code, and experiments for the manuscript
+This repository is the implementation for the manuscript
 
 
-> [Tilted Empirical Risk Minimization]()
+> [Tilted Empirical Risk Minimization](http://arxiv.org/abs/2007.01162)
 >
 > Arxiv 2020
 
+Empirical risk minimization (ERM) is typically designed to perform well on the average loss, which can result in estimators that are sensitive to outliers, generalize poorly, or treat subgroups unfairly. While many methods aim to address these problems individually, in this work, we explore them through a unified framework---tilted empirical risk minimization (TERM).
 
-
-We demonstrate that TERM can be used for a multitude of applications, 
+This repository contains the data, code, and experiments to reproduce our empirical results. We demonstrate that TERM can be used for a multitude of applications, 
 such as enforcing fairness between subgroups, 
 mitigating the effect of outliers, and handling class imbalance.
  TERM is not only competitive with existing solutions tailored to these individual problems, 
@@ -21,7 +21,7 @@ mitigating the effect of outliers, and handling class imbalance.
 
 As we apply TERM to a diverse set of real-world applications, the dependencies for different applications can be different.
 
-* if we mention that the code is based on other public codebases, you will need to follow the same setup of those codebases. 
+* if we mention that the code is based on other public codebases, then one needs to follow the same setup of those codebases. 
 * otherwise, need the following dependencies (the latest versions will work):
 	* python3
 	* sklearn
@@ -35,7 +35,7 @@ As we apply TERM to a diverse set of real-world applications, the dependencies f
 ## Properties of TERM
 
 
-### Motivating examles
+### Motivating examples
 ![](https://user-images.githubusercontent.com/14993256/84578901-4b1bc700-ad97-11ea-9fd8-1c3894fbc0ed.png)
     
 These figures illustrate TERM as a function of t: (a) finding a point estimate from a set of 2D samples, (b) linear regression with outliers,
@@ -44,7 +44,7 @@ These figures illustrate TERM as a function of t: (a) finding a point estimate f
  
 *(How to generate these figures:
 `
-cd term/toy_example &
+cd TERM/toy_example &
 jupyter notebook
 `
 , and directly run the three notebooks.)*
@@ -60,7 +60,7 @@ As t moves from -<img src="https://render.githubusercontent.com/render/math?math
 
 *(How to generate this figure:
 `
-cd term/properties &
+cd TERM/properties &
 jupyter notebook
 `
 , and directly run the notebook.)*
@@ -71,7 +71,7 @@ jupyter notebook
 **1. Robust regression** 
 
 ```
-cd term/robust_regression
+cd TERM/robust_regression
 python regression.py --obj $OBJ --corrupt 1 --noise $NOISE
 ```
 where `$OBJ` is the objective and `$NOISE` is the noise level (see code for options).
@@ -81,19 +81,19 @@ where `$OBJ` is the objective and `$NOISE` is the noise level (see code for opti
 **2. Robust classification**
 
 ```
-cd term/robust_classification
+cd TERM/robust_classification
 ```
 
 * built upon the public [mentornet codebase](https://github.com/google/mentornet)
 * dependencies: same as the dependencies of the [mentornet codebase](https://github.com/google/mentornet)
-* usage: see `README` under `term/robust_classification`
+* usage: see `README` under `TERM/robust_classification`
     
     
 **3. Mitigating noisy annotators**
 
 
 ```
-cd term/noisy_annotator/pytorch_resnet_cifar10
+cd TERM/noisy_annotator/pytorch_resnet_cifar10
 python trainer.py --t -2  # TERM
 ```
 
@@ -104,20 +104,20 @@ python trainer.py --t -2  # TERM
 **4. Fair PCA**
 
 ```
-cd term/fair_pca
+cd TERM/fair_pca
 jupyter notebook
 ```
 and directly run the notebook `fair_pca_credit.ipynb`.
 
 * built upon the public [fair pca codebase](https://github.com/uthaipon/multi-criteria-dimensionality-reduction)
-* we directly extract the pre-processed Credit data dumped from the original [matlab code](https://github.com/samirasamadi/Fair-PCA/blob/master/creditProcess.m), which are called `data.csv`, `A.csv`, and `B.csv` saved under `term/fair_pca/multi-criteria-dimensionality-reduction-master/data/credit/`.
+* we directly extract the pre-processed Credit data dumped from the original [matlab code](https://github.com/samirasamadi/Fair-PCA/blob/master/creditProcess.m), which are called `data.csv`, `A.csv`, and `B.csv` saved under `TERM/fair_pca/multi-criteria-dimensionality-reduction-master/data/credit/`.
 * dependencies: same as the [fair pca code](https://github.com/uthaipon/multi-criteria-dimensionality-reduction)
 
 
 **5. Handling class imbalance**
 
 ```
-cd term/class_imbalance
+cd TERM/class_imbalance
 python3 -m mnist.mnist_train_tilting --exp tilting  # TERM, common class=99.5%
 ```
 
@@ -128,7 +128,7 @@ python3 -m mnist.mnist_train_tilting --exp tilting  # TERM, common class=99.5%
 **6. Variance reduction for generalization**
 
 ```
-cd term/DRO
+cd TERM/DRO
 python variance_reduction.py --obj $OBJ $OTHER_PARAS  
 ```
 where `$OBJ` is the objective, and `$OTHER_PARAS$` are the hyperparameters associated with the objective (see code for options). We report how we select the hyperparameters along with all hyperparameter values in Appendix E of the paper. For instance, for TERM with `t=50`, run the following:
@@ -144,7 +144,7 @@ python variance_reduction.py --obj tilting --t 50
 **7. Fair federated learning**
 
 ```
-cd term/fair_flearn
+cd TERM/fair_flearn
 bash run.sh tilting 0 0 term_t0.1_seed0 > term_t0.1_seed0 2>&1 &
 ```
 * built upon the public [q-FFL codebase](https://github.com/litian96/fair_flearn)
@@ -156,7 +156,7 @@ bash run.sh tilting 0 0 term_t0.1_seed0 > term_t0.1_seed0 2>&1 &
 **8. Hierarchical multi-objective tilting**
 
 ```
-cd term/hierarchical
+cd TERM/hierarchical
 python mixed_level1.py --imbalance 1 --corrupt 1 --obj tilting --t_in -2 --t_out 10  # TERM_sc
 python mixed_level2.py --imbalance 1 --corrupt 1 --obj tilting --t_in 50 --t_out -2 # TERM_ca
 ```
@@ -172,7 +172,7 @@ python mixed_level2.py --imbalance 1 --corrupt 1 --obj tilting --t_in 50 --t_out
 ## References
 
 
-Please see the [paper]() for more details of TERM as well as a complete list of related work.
+Please see the [paper](http://arxiv.org/abs/2007.01162) for more details of TERM as well as a complete list of related work.
     
     
 
