@@ -1,6 +1,6 @@
 # Tilted Empirical Risk Minimization
 
-This repository is the implementation for the manuscript
+This repository contains the implementation for the manuscript
 
 
 > [Tilted Empirical Risk Minimization](http://arxiv.org/abs/2007.01162)
