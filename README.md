@@ -26,7 +26,7 @@ As we apply TERM to a diverse set of real-world applications, the dependencies f
 	* python3
 	* sklearn
 	* numpy
-	* matplolib
+	* matplotlib
 	* colorsys
 	* seaborn
 	* scipy
