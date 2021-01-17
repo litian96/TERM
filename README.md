@@ -30,7 +30,7 @@ As we apply TERM to a diverse set of real-world applications, the dependencies f
 	* colorsys
 	* seaborn
 	* scipy
-	* cvxpy
+	* cvxpy (optional)
 
 ## Properties of TERM
 
