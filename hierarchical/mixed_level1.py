@@ -67,7 +67,7 @@ def compute_gradients_tilting(theta, X_1, y_1, X_2, y_2, t_in, t_out):
         else:
             l_max = 0
 
-        gradient = np.dot(X.T, np.multiply(np.exp((l - l_max) * t), h - y)) / y.size
+        gradient = np.dot(X.T, np.multiply(np.exp((l - l_max) * t), h - y))
         ZZ = np.mean(np.exp(t * (l - l_max)))
         return gradient / ZZ, l
 
@@ -82,9 +82,9 @@ def compute_gradients_tilting(theta, X_1, y_1, X_2, y_2, t_in, t_out):
     l_1, l_2 = compute_inner_obj(t_in, l1), compute_inner_obj(t_in, l2)
     l_max = max(l_1, l_2)
 
-    gradient = (np.exp((l_1 - l_max) * t_out) * gradient1 * y_1.size + \
-                                                np.exp((l_2 - l_max) * t_out) * gradient2 * y_2.size)/(y_1.size + y_2.size)
-    ZZ = (np.exp(t_out * (l_1 - l_max)) + np.exp(t_out * (l_2 - l_max)))/2
+    gradient = (np.exp((l_1 - l_max) * t_out) * gradient1  + \
+                                                np.exp((l_2 - l_max) * t_out) * gradient2)
+    ZZ = len(y_1) * np.exp(t_out * (l_1 - l_max)) + len(y_2) * np.exp(t_out * (l_2 - l_max))
 
     return gradient / ZZ
 

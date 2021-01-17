@@ -45,7 +45,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 tf.logging.set_verbosity(tf.logging.ERROR)
 
 flags = tf.flags
-flags.DEFINE_float('pos_ratio', 0.995, 'Ratio of positive examples in training')
+flags.DEFINE_float('pos_ratio', 0.98, 'Ratio of positive examples in training')
 flags.DEFINE_integer('nrun', 5, 'Number of runs')
 flags.DEFINE_integer('ntest', 500, 'Number of testing examples')
 flags.DEFINE_integer('ntrain', 5000, 'Number of training examples')
@@ -73,7 +73,7 @@ def RegisterExp(name):
 
 
 LR = 0.002
-NUM_STEPS = 200
+NUM_STEPS = 2000
 
 
 @RegisterExp('baseline')
@@ -384,12 +384,12 @@ def run(dataset, exp_name, seed, verbose=True):
             loss_negative = np.mean(loss_array[negative_indices])
             max_l = max(loss_positive, loss_negative)
 
-            tt = 50
+            tt = 100
 
-            weights_positive = np.exp(tt * (loss_positive-max_l)) / (
-                        np.exp(tt * (loss_positive-max_l)) + np.exp(tt * (loss_negative-max_l)))
-            weights_negative = np.exp(tt * (loss_negative-max_l)) / (
-                        np.exp(tt * (loss_positive-max_l)) + np.exp(tt * (loss_negative-max_l)))
+            weights_positive = len_positive * np.exp(tt * (loss_positive-max_l)) / (
+                        len_positive * np.exp(tt * (loss_positive-max_l)) + len_negative * np.exp(tt * (loss_negative-max_l)))
+            weights_negative = len_negative * np.exp(tt * (loss_negative-max_l)) / (
+                        len_positive * np.exp(tt * (loss_positive-max_l)) + len_negative * np.exp(tt * (loss_negative-max_l)))
 
             np.random.seed(seed + step)
             label_ = np.random.choice([1, 0], 1, p=np.array([weights_positive, weights_negative]))
@@ -421,6 +421,9 @@ def run(dataset, exp_name, seed, verbose=True):
                 if verbose:
                     print('Step', step + 1, 'Loss', loss, 'Train acc', train_acc, 'Test acc',
                           test_acc)
+
+                if loss < 0.01:
+                    break
 
         # Final evaluation.
         train_acc, test_acc = evaluate(sess, x_, y_, acc_, train_set, test_set)

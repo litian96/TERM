@@ -50,12 +50,13 @@ def compute_gradients_tilting(theta, Xs, ys, t_in, t_out, num_corrupted):
         l_1 = np.mean(loss(h_1, y_1))
         l_2 = np.mean(loss(h_2, y_2))
         l_max = max(l_1, l_2)
-        gradient = (np.exp((l_1 - l_max) * t) * gradient1 + np.exp((l_2 - l_max) * t) * gradient2) / y.size
-        ZZ = (np.exp(t * (l_1 - l_max)) + np.exp(t * (l_2 - l_max))) / 2
-        return gradient / ZZ, np.array([l_1, l_2])
+        gradient = (np.exp((l_1 - l_max) * t) * gradient1 + np.exp((l_2 - l_max) * t) * gradient2)
+        ZZ = len(y_1) * np.exp(t * (l_1 - l_max)) + len(y_2) * np.exp(t * (l_2 - l_max))
+        return gradient / ZZ, np.array([len(y_1) * np.exp(t * l_1), len(y_2) * np.exp(t * l_2)])
 
-    def compute_inner_obj(t_in, l):
-        return (1/t_in) * np.log(np.mean(np.exp(t_in*l)))
+
+    def compute_inner_obj(t_in, l, num_sample):
+        return 1/t_in * np.log(1/num_sample * (l[0] + l[1]))
 
 
     gradients = []
@@ -63,19 +64,16 @@ def compute_gradients_tilting(theta, Xs, ys, t_in, t_out, num_corrupted):
     for i in range(len(Xs)):
         g, l = compute_gradients_inner_tilting(theta, Xs[i], ys[i], t_in)
         gradients.append(g)
-        inner_objs.append(compute_inner_obj(t_in, l))
+        inner_objs.append(compute_inner_obj(t_in, l, len(ys[i])))
 
     l_max = max(inner_objs)
     total_samples = ys[0].size
     final_g = np.exp((inner_objs[0]-l_max) * t_out) * gradients[0] * ys[0].size
-    ZZ = np.exp(t_out * (inner_objs[0] - l_max))
+    ZZ = np.exp(t_out * (inner_objs[0] - l_max)) * ys[0].size
     for i in range(1, len(ys)):
         final_g += np.exp((inner_objs[i]-l_max) * t_out) * gradients[i] * ys[i].size
         total_samples += ys[i].size
-        ZZ += np.exp(t_out * (inner_objs[i] - l_max))
-
-    final_g = final_g / total_samples
-    ZZ = ZZ / len(ys)
+        ZZ += np.exp(t_out * (inner_objs[i] - l_max)) * ys[i].size
 
     return final_g / ZZ
 

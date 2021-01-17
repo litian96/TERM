@@ -55,8 +55,8 @@ def compute_gradients_tilting(theta, X_1, y_1, X_2, y_2, t):  # TERM
     l_1 = np.mean(loss(h_1, y_1))
     l_2 = np.mean(loss(h_2, y_2))
     l_max = max(l_1, l_2)
-    gradient = (np.exp((l_1-l_max) * t) * gradient1 + np.exp((l_2-l_max) * t) * gradient2) / (y_1.size+y_2.size)
-    ZZ = (np.exp(t * (l_1-l_max)) + np.exp(t * (l_2-l_max)))/2
+    gradient = np.exp((l_1-l_max) * t) * gradient1 + np.exp((l_2-l_max) * t) * gradient2
+    ZZ = len(y_1) * np.exp(t * (l_1-l_max)) + len(y_2) * np.exp(t * (l_2-l_max))
     return gradient / ZZ
 
 
