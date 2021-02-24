@@ -7,6 +7,14 @@ This repository contains the implementation for the paper
 >
 > ICLR 2021
 
+<p align="center">
+  <img width="500" height="300" src="https://user-images.githubusercontent.com/14993256/109054521-f497b400-76ab-11eb-9961-a4dc34f2b18f.gif">
+</p>
+
+> *A toy example on linear regression illustrating the Tilted Empirical Risk Minimization (TERM) objective as a function of t. As t -> -\infty, TERM finds a line of best while ignoring outliers. However, this solution may not be preferred if we have reason to believe that these ‘outliers’ should not be ignored. As t -> +\infty, TERM recovers the min-max solution, which minimizes the worst loss. This ensures the model is a reasonable fit for all samples, and can be useful if we care about fairness in the context of representation disparity. Classical ERM (t=0) overfits the ‘outliers’.*
+
+
+
 Empirical risk minimization (ERM) is typically designed to perform well on the average loss, which can result in estimators that are sensitive to outliers, generalize poorly, or treat subgroups unfairly. While many methods aim to address these problems individually, in this work, we explore them through a unified framework---tilted empirical risk minimization (TERM).
 
 This repository contains the data, code, and experiments to reproduce our empirical results. We demonstrate that TERM can be used for a multitude of applications, 
