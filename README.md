@@ -5,7 +5,7 @@ This repository contains the implementation for the following papers
 
 > [Tilted Empirical Risk Minimization](https://openreview.net/forum?id=K5YasWXZT3O), ICLR 2021
 > 
-> [On Tilted Losses in Machine Learning: Theory and Applications](https://arxiv.org/abs/2109.06141), ArXiv 2021
+> [On Tilted Losses in Machine Learning: Theory and Applications](https://arxiv.org/abs/2109.06141), JMLR 2023
 
 
 Empirical risk minimization (ERM) is typically designed to perform well on the average loss, which can result in estimators that are sensitive to outliers, generalize poorly, or treat subgroups unfairly. While many methods aim to address these problems individually, in this work, we explore them through a unified framework---tilted empirical risk minimization (TERM).
